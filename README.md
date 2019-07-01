@@ -8,7 +8,7 @@ Create fields on Zaius objects in bulk via CSV
 # Environment Instructions
 1. Go to https://www.python.org/downloads/ and download Python 3
 2. Install Python 3
-3. Run `pip3 install requests`
+3. Run `pip3 install requests` in terminal
 
 # CSV Format
 1. Filename may be whatever you choose, you must supply the filename as an argument to the script and it must be in the same directory as the script
@@ -32,6 +32,5 @@ usage: python redact.py [-h] [-l LOGLEVEL] -r REQUESTER -f FILE -a AUTH
 
 optional arguments:
   -h, --help            show this help message and exit
-  -f FILE, --file FILE  Supply the name of the file with the identifiers to
-                        process. Supported columns are: email, vuid, phone
+  -f FILE, --file FILE  Supply the name of the file with fields to create
 ```
