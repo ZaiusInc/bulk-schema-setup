@@ -17,7 +17,7 @@ Create fields on Zaius objects in bulk via CSV
 - `object` is the name of the object to create the field on (e.g. `customers`)
 - `name` is the field name (e.g. `favorite_band`)
 - `display_name` is the pretty field name (e.g. `Favorite Band`)
-- `type` is the field data type (e.g. `string`)
+- `type` is the field data type (e.g. `string`, `number`, `timestamp`, `boolean`)
 - `description` is text describing the purpose of the field (e.g. `The favorite band field is the customer's most listened to band`)
 - `api_key` is the private API key of the account to create the field on
 
