@@ -12,9 +12,7 @@ class ZaiusSchema():
             description='A script to create fields on objects for a Zaius account.'
         )
 
-        parser.add_argument('-l', '--log', dest='loglevel', required=False, help='Supply the name of the file with the identifiers to process. Supported columns are: email, vuid, phone')
         parser.add_argument('-f', '--file', dest='file', required=True, help='Supply the name of the file with the identifiers to process. Supported columns are: email, vuid, phone')
-        #parser.add_argument('-a', '--auth', dest='auth', required=True, help='Supply the private API key for the account that contains the identifiers to be processed')
 
         args = parser.parse_args()
 
@@ -35,13 +33,11 @@ class ZaiusSchema():
 
     def create_fields(self):
 
-        row_number = 1
-
         for row in self.read_file():
             
-            #print(row['name'])
-
-            api_key = row['api_key']
+            api_headers = {
+                "x-api-key": row['api_key'].strip()
+            }
 
             spec = {
                 "name": row['name'],
@@ -51,21 +47,7 @@ class ZaiusSchema():
                 "description": row['description']
             }
 
-            api_payload = {
-                "fields": [spec]
-            }
-
-            api_key = api_key.strip()
-
-            api_headers = {
-                "x-api-key": api_key
-            }
-
-            zaius_object = row['object']
-
-            url = "https://api.zaius.com/v3/schema/objects/" + zaius_object + "/fields"
-
-            print(api_payload)
+            url = "https://api.zaius.com/v3/schema/objects/" + row['object'] + "/fields"
 
             try:
                 response = requests.post(url, json=spec, headers=api_headers)
