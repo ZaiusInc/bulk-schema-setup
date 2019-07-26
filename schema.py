@@ -3,6 +3,7 @@ import csv
 import argparse
 import time
 import json
+import ast
 
 class ZaiusSchema():
 
@@ -40,11 +41,11 @@ class ZaiusSchema():
             }
 
             spec = {
-                "name": row['name'],
-                "type": row['type'],
-                "display_name": row['display_name'],
+                "name": row['name'].strip(),
+                "type": row['type'].strip(),
+                "display_name": row['display_name'].strip(),
                 "primary_key": False,
-                "description": row['description']
+                "description": row['description'].strip()
             }
 
             url = "https://api.zaius.com/v3/schema/objects/" + row['object'] + "/fields"
@@ -52,10 +53,13 @@ class ZaiusSchema():
             try:
                 response = requests.post(url, json=spec, headers=api_headers)
 
+                responseDict = ast.literal_eval(response.text)
+
                 if response.status_code == 200:
                     print("Successfully created field: " + row['name'])
                 else:
-                    print("Failed to create field: " + row['name'] + "\n" + response.text)
+                    print("Failed to create field: " + row['name'] + "\n" + responseDict['detail']['invalids'][0]['reason'] + '\n' + row['api_key'] + '\n')
+
 
             except Exception as e:
                 print(str(e))
