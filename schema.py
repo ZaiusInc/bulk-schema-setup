@@ -52,7 +52,7 @@ class ZaiusSchema():
             try:
                 response = requests.post(url, json=spec, headers=api_headers)
 
-                if response.status_code == 202:
+                if response.status_code == 200:
                     print("Successfully created field: " + row['name'])
                 else:
                     print("Failed to create field: " + row['name'] + "\n" + response.text)
